@@ -1,3 +1,9 @@
+const jsonata = require('./node_modules/jsonata/jsonata.js')
+const Vue = require('./node_modules/vue/dist/vue.js')
+const VueResource = require('./node_modules/vue-resource/dist/vue-resource.js')
+
+Vue.use(VueResource)
+
 var bookVM = new Vue({
     el: '#app',
     data: {

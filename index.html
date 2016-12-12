@@ -3,16 +3,85 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bíblia Sagrada</title>
-    <script src="./node_modules/jsonata/jsonata.js" charset="utf-8"></script>
-    <script src="./node_modules/vue/dist/vue.js" charset="utf-8"></script>
-    <script src="./node_modules/vue-resource/dist/vue-resource.js" charset="utf-8"></script>
+
+    <!-- Global stylesheets -->
+    <link href="./assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href="./assets/css/colors.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script type="text/javascript" src="./assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="./assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="./assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/ui/drilldown.js"></script>
+    <script type="text/javascript" src="./assets/js/core/app.js"></script>
+    <script type="text/javascript" src="./assets/js/plugins/ui/ripple.min.js"></script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
 </head>
 
 <body>
-    <h1>Bíblia Sagrada</h1>
+    <!-- Main navbar -->
+    <div class="navbar navbar-inverse bg-indigo">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+
+            <ul class="nav navbar-nav pull-right visible-xs-block">
+                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav">
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown dropdown-user">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="assets/images/placeholder.jpg" alt="">
+                        <span>Marco</span>
+                        <i class="caret"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
+                        <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
+                        <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
+                        <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /main navbar -->
 
     <div id="app">
+        <!-- Page header -->
+        <div class="page-header" v-if="control.selectedBook.title">
+            <div class="page-header-content">
+                <div class="page-title">
+                    <h4>{{control.selectedBook.title}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- /page header -->
+
         <div v-if="control.showBackButton">
             <a href="#" v-on:click.prevent="goToListBook">Voltar</a>
         </div>
@@ -24,7 +93,6 @@
         </ul>
 
         <div v-if="control.showChapterNumbers">
-            <h2>{{control.selectedBook.title}}</h2>
             <p>
                 <a href="#" v-for="chapterNum in book.chapterNumbers" style="margin: 0 2px" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)">
                     <span v-if="control.boldChapter == parseInt(chapterNum)"><strong>{{chapterNum}}</strong></span>
@@ -39,6 +107,8 @@
     </div>
 </body>
 
-<script src="./app.js" charset="utf-8"></script>
+<script>
+    require('./app.js')
+</script>
 
 </html>
