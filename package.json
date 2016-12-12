@@ -1,0 +1,17 @@
+{
+  "name": "bible",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "jsonata": "^1.0.10",
+    "vue": "^2.1.4",
+    "vue-resource": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

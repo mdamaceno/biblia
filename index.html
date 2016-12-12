@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bíblia Sagrada</title>
+    <script src="./node_modules/jsonata/jsonata.js" charset="utf-8"></script>
+    <script src="./node_modules/vue/dist/vue.js" charset="utf-8"></script>
+    <script src="./node_modules/vue-resource/dist/vue-resource.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <h1>Bíblia Sagrada</h1>
+
+    <div id="app">
+        <ul>
+            <li v-for="book in books"><a href="#" v-on:click="">{{book.book}}</a></li>
+        </ul>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var bookVM = new Vue({
+        el: '#app',
+        data: {
+            book: {
+                verse: '',
+                chapters: []
+            },
+            books: {}
+        },
+        mounted: function() {
+            var _this = this
+
+            Promise.resolve(_this.parseData())
+        },
+        methods: {
+            parseData: function() {
+                var _this = this
+                var p1 = new Promise(function(resolve, reject) {
+                    _this.$http.get('./data/nvi.json').then((response) => {
+                        var data = JSON.parse(response.data)
+                        resolve(data)
+                    }, (response) => {
+                        reject(response.data)
+                    })
+                })
+
+                p1.then(function(data) {
+                    _this.books = data
+                })
+            },
+
+            getBook: function(index) {
+                var _this = this
+                var result = jsonata('$[' + parseInt(index) + '].chapters').evaluate(_this.books)
+                result.forEach(function(r, index) {
+                    _this.book.chapters.push(index + 1)
+                })
+            },
+
+            getText: function(book, chapter, verse) {
+                var _this = this
+                var result = jsonata('$[' + parseInt(book) + '].chapters[' + parseInt(chapter) + ']').evaluate(_this.books)
+                _this.book.verse = result[parseInt(chapter) + 1][parseInt(verse)]
+            }
+        }
+    })
+</script>
+
+</html>
