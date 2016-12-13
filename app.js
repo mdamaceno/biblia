@@ -31,19 +31,20 @@ var bookVM = new Vue({
     mounted: function() {
         var _this = this
 
-        Promise.resolve(_this.parseData())
-            .then(function() {
-                _this.control.selectedVersion = {
-                    index: 0,
-                    name: _this.versions[0]
-                }
-            })
+        Promise.resolve(_this.setVersion(0))
     },
     methods: {
-        parseData: function() {
+        parseData: function(version) {
             var _this = this
+            var version = version || 'nvi'
+            var jsonDataArr = {
+                nvi: './data/nvi.json',
+                acf: './data/acf.json',
+                aa: './data/aa.json'
+            }
+
             var p1 = new Promise(function(resolve, reject) {
-                _this.$http.get('./data/nvi.json').then((response) => {
+                _this.$http.get(jsonDataArr[version]).then((response) => {
                     resolve(JSON.parse(response.data))
                 }, (response) => {
                     reject(response.data)
@@ -98,7 +99,7 @@ var bookVM = new Vue({
             _this.control.boldChapter = 0
             _this.control.selectedBook = {}
 
-            _this.parseData()
+            _this.parseData(_this.control.selectedVersion.index)
         },
 
         setColorBg: function(index) {
@@ -137,6 +138,24 @@ var bookVM = new Vue({
                 index: index,
                 name: _this.versions[index]
             }
+
+            if (index == 0) {
+                _this.parseData('nvi')
+            } else if (index == 1) {
+                _this.parseData('acf')
+            } else if (index == 2) {
+                _this.parseData('aa')
+            } else {
+                _this.parseData('nvi')
+            }
+
+            // Controllers
+            _this.control.showListBook = true
+            _this.control.showChapterNumbers = false
+            _this.control.showBackButton = false
+            _this.control.showChapterVerses = false
+            _this.control.boldChapter = 0
+            _this.control.selectedBook = {}
         }
     }
 })
