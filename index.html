@@ -101,7 +101,7 @@
 
                     <div v-if="control.showChapterNumbers">
                         <div class="row">
-                            <div class="col-xs-1 btn btn-xs bg-slate-800" v-for="chapterNum in book.chapterNumbers" style="margin: 2px 2px" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)" style="cursor: pointer">
+                            <div class="col-xs-1 btn btn-xs bg-slate" v-for="chapterNum in book.chapterNumbers" style="margin: 2px 2px" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)" style="cursor: pointer">
                                 <span v-if="control.boldChapter == parseInt(chapterNum)"><strong>{{chapterNum}}</strong></span>
                                 <span v-else><span>{{chapterNum}}</span></span>
                             </div>
