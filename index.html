@@ -35,43 +35,40 @@
 </head>
 
 <body>
-    <!-- Main navbar -->
-    <div class="navbar navbar-inverse bg-indigo">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
-
-            <ul class="nav navbar-nav pull-right visible-xs-block">
-                <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
-            </ul>
-        </div>
-
-        <div class="navbar-collapse collapse" id="navbar-mobile">
-            <ul class="nav navbar-nav">
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown dropdown-user">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="assets/images/placeholder.jpg" alt="">
-                        <span>Marco</span>
-                        <i class="caret"></i>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>
-                        <li><a href="#"><i class="icon-coins"></i> My balance</a></li>
-                        <li><a href="#"><span class="badge badge-warning pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-                        <li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- /main navbar -->
-
     <div id="app">
+        <!-- Main navbar -->
+        <div class="navbar navbar-inverse bg-slate-800">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+
+                <ul class="nav navbar-nav pull-right visible-xs-block">
+                    <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="navbar-collapse collapse" id="navbar-mobile">
+                <ul class="nav navbar-nav">
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-user">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <span>Nova Vesão Internacional (NVI)</span>
+                            <i class="caret"></i>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">Nova Vesão Internacional (NVI)</a></li>
+                            <li><a href="#">Almeida Corrigida e Fiel (ACF)</a></li>
+                            <li><a href="#">Almeida Revisada Imprensa Bíblica (AA)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /main navbar -->
+
+
         <!-- Page header -->
         <div class="page-header" v-if="control.selectedBook.title">
             <div class="page-header-content">
@@ -82,27 +79,40 @@
         </div>
         <!-- /page header -->
 
-        <div v-if="control.showBackButton">
-            <a href="#" v-on:click.prevent="goToListBook">Voltar</a>
-        </div>
+        <div class="page-container">
+            <div class="page-content">
+                <div class="content-wrapper">
 
-        <ul v-if=control.showListBook>
-            <li v-for="(book, index) in books">
-                <a href="#" v-on:click.prevent="getBook(index)">{{book.book}}</a>
-            </li>
-        </ul>
+                    <div v-if="control.showBackButton">
+                        <a href="#" v-on:click.prevent="goToListBook">Voltar</a>
+                    </div>
 
-        <div v-if="control.showChapterNumbers">
-            <p>
-                <a href="#" v-for="chapterNum in book.chapterNumbers" style="margin: 0 2px" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)">
-                    <span v-if="control.boldChapter == parseInt(chapterNum)"><strong>{{chapterNum}}</strong></span>
-                    <span v-else><span>{{chapterNum}}</span></span>
-                </a>
-            </p>
-        </div>
+                    <ul v-if=control.showListBook>
+                        <div class="row">
+                            <div class="col-md-3" v-for="(book, index) in books">
+                                <div v-bind:class="'panel panel-flat ' + setColorBg(index)" v-on:click.prevent="getBook(index)" style="cursor: pointer">
+                                    <div class="panel-heading">
+                                        <h6 class="panel-title">{{book.book}}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
 
-        <div v-if="control.showChapterVerses">
-            <p v-for="(verse, index) in book.chapterVerses">{{index}}. {{verse}}</p>
+                    <div v-if="control.showChapterNumbers">
+                        <p>
+                            <a href="#" v-for="chapterNum in book.chapterNumbers" style="margin: 0 2px" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)">
+                                <span v-if="control.boldChapter == parseInt(chapterNum)"><strong>{{chapterNum}}</strong></span>
+                                <span v-else><span>{{chapterNum}}</span></span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div v-if="control.showChapterVerses">
+                        <p v-for="(verse, index) in book.chapterVerses">{{index}}. {{verse}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
