@@ -13,24 +13,36 @@ var bookVM = new Vue({
             chapterVerses: []
         },
         books: {},
+        versions: [
+            'Nova Versão Internacional (NVI)',
+            'Almeida Corrigida e Fiel (ACF)',
+            'Almeida Revisada Imprensa Bíblica (AA)'
+        ],
         control: {
             showListBook: true,
             showChapterNumbers: false,
             showBackButton: false,
             showChapterVerses: false,
             boldChapter: 0,
-            selectedBook: {}
+            selectedBook: {},
+            selectedVersion: {}
         }
     },
-    mounted: function () {
+    mounted: function() {
         var _this = this
 
         Promise.resolve(_this.parseData())
+            .then(function() {
+                _this.control.selectedVersion = {
+                    index: 0,
+                    name: _this.versions[0]
+                }
+            })
     },
     methods: {
-        parseData: function () {
+        parseData: function() {
             var _this = this
-            var p1 = new Promise(function (resolve, reject) {
+            var p1 = new Promise(function(resolve, reject) {
                 _this.$http.get('./data/nvi.json').then((response) => {
                     resolve(JSON.parse(response.data))
                 }, (response) => {
@@ -38,12 +50,12 @@ var bookVM = new Vue({
                 })
             })
 
-            p1.then(function (data) {
+            p1.then(function(data) {
                 _this.books = data
             })
         },
 
-        getBook: function (index) {
+        getBook: function(index) {
             var _this = this
             var result = jsonata('$[' + parseInt(index) + '].chapters').evaluate(_this.books)
 
@@ -64,7 +76,7 @@ var bookVM = new Vue({
             }
         },
 
-        getText: function (book, chapter) {
+        getText: function(book, chapter) {
             var _this = this
             var result = jsonata('$[' + parseInt(book) + '].chapters[' + (parseInt(chapter) - 1) + ']').evaluate(_this.books)
 
@@ -75,7 +87,7 @@ var bookVM = new Vue({
             _this.book.chapterVerses = result[chapter]
         },
 
-        goToListBook: function () {
+        goToListBook: function() {
             var _this = this
 
             // Controllers
@@ -89,7 +101,7 @@ var bookVM = new Vue({
             _this.parseData()
         },
 
-        setColorBg: function (index) {
+        setColorBg: function(index) {
             var _this = this
             var index = parseInt(index)
 
@@ -115,6 +127,15 @@ var bookVM = new Vue({
                 return "bg-orange-400"
             } else {
                 return ""
+            }
+        },
+
+        setVersion: function(index) {
+            var _this = this
+
+            _this.control.selectedVersion = {
+                index: index,
+                name: _this.versions[index]
             }
         }
     }

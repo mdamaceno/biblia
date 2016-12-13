@@ -53,14 +53,12 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown dropdown-user">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                            <span>Nova Vesão Internacional (NVI)</span>
+                            <span>{{control.selectedVersion.name}}</span>
                             <i class="caret"></i>
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#">Nova Vesão Internacional (NVI)</a></li>
-                            <li><a href="#">Almeida Corrigida e Fiel (ACF)</a></li>
-                            <li><a href="#">Almeida Revisada Imprensa Bíblica (AA)</a></li>
+                            <li v-for="(version, index) in versions"><a href="#" v-on:click.prevent="setVersion(index)">{{version}}</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -91,24 +89,24 @@
                         </div>
                     </div>
 
-                    <ul v-if=control.showListBook>
+                    <div v-if=control.showListBook>
                         <div class="row">
-                            <div class="col-md-3" v-for="(book, index) in books">
+                            <div class="col-md-4 col-sm-6 col-xs-12 col-lg-2" v-for="(book, index) in books">
                                 <div v-bind:class="'panel panel-flat ' + setColorBg(index)" v-on:click.prevent="getBook(index)" style="cursor: pointer">
                                     <div class="panel-heading">
-                                        <h6 class="panel-title">{{book.book}}</h6>
+                                        <h6 class="panel-title text-bold">{{book.book}}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </ul>
+                    </div>
 
                     <div v-if="control.showChapterNumbers">
                         <div class="row" style="margin-bottom: 1em;">
                             <div class="col-md-12">
                                 <div class="btn-toolbar">
                                     <div class="btn-group" v-for="chapterNum in book.chapterNumbers">
-                                        <button type="button" class="btn btn-xs bg-default" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)" style="cursor: pointer">
+                                        <button type="button" class="btn btn-lg bg-default" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)" style="cursor: pointer; margin-bottom: 0.3em">
                                             <span v-if="control.boldChapter == parseInt(chapterNum)"><strong>{{chapterNum}}</strong></span>
                                             <span v-else><span>{{chapterNum}}</span></span>
                                         </button>
