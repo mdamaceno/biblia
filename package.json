@@ -4,11 +4,9 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "electron": "^1.4.12",
     "jsonata": "^1.0.10",
     "vue": "^2.1.4",
     "vue-resource": "^1.0.3"
