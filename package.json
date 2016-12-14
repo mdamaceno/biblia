@@ -11,7 +11,9 @@
     "vue": "^2.1.4",
     "vue-resource": "^1.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "vue-devtools": "^2.3.1-beta1"
+  },
   "author": "",
   "license": "ISC"
 }
