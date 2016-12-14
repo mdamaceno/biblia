@@ -99,7 +99,7 @@ var bookVM = new Vue({
             _this.control.boldChapter = 0
             _this.control.selectedBook = {}
 
-            _this.parseData(_this.control.selectedVersion.index)
+            Promise.resolve(_this.setVersion(_this.control.selectedVersion.index))
         },
 
         setColorBg: function(index) {
