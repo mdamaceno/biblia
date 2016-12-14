@@ -1,17 +1,22 @@
 {
-  "name": "bible",
-  "version": "1.0.0",
+  "name": "biliasimples",
+  "version": "0.0.3",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "NODE_ENV=production && electron-packager . --all --version=1.4.11 --out=./build --overwrite"
   },
   "dependencies": {
+    "dotenv": "^2.0.0",
     "jsonata": "^1.0.10",
     "vue": "^2.1.4",
     "vue-resource": "^1.0.3"
   },
   "devDependencies": {
+    "electron-packager": "^8.4.0",
+    "electron-prebuilt": "^1.4.12",
     "vue-devtools": "^2.3.1-beta1"
   },
   "author": "",
