@@ -16,8 +16,10 @@
   },
   "devDependencies": {
     "electron": "^1.4.12",
+    "electron-connect": "^0.6.1",
     "electron-packager": "^8.4.0",
     "electron-prebuilt": "^1.4.12",
+    "gulp": "^3.9.1",
     "vue-devtools": "^2.3.1-beta1"
   },
   "author": "",
