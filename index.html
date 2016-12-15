@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bíblia Sagrada</title>
+    <title>Bíblia Nossa</title>
 
     <!-- Global stylesheets -->
     <link href="./assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
     </script>
 </head>
 
-<body class="navbar-bottom navbar-top">
+<body class="navbar-top">
     <div id="app">
         <!-- Main navbar -->
         <div class="navbar navbar-inverse bg-slate-800 navbar-fixed-top">
@@ -80,52 +80,59 @@
         <div class="page-container">
             <div class="page-content">
                 <div class="content-wrapper">
+                    <div class="content">
 
-                    <div v-if="control.showBackButton">
-                        <div class="row" style="margin-bottom: 1em;">
-                            <div class="col-md-12">
-                                <a href="#" v-on:click.prevent="goToListBook" class="btn btn bg-slate">Voltar</a>
+                        <div v-if="control.showBackButton">
+                            <div class="row" style="margin-bottom: 1em;">
+                                <div class="col-md-12">
+                                    <a href="#" v-on:click.prevent="goToListBook" class="btn btn bg-slate">Voltar</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div v-if=control.showListBook>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6 col-xs-12 col-lg-2" v-for="(book, index) in books">
-                                <div v-bind:class="'panel panel-flat ' + setColorBg(index)" v-on:click.prevent="getBook(index)" style="cursor: pointer">
-                                    <div class="panel-heading">
-                                        <h6 class="panel-title text-bold">{{book.book}}</h6>
+                        <div v-if=control.showListBook>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6 col-xs-12" v-for="(book, index) in books">
+                                    <div v-bind:class="'panel panel-flat ' + setColorBg(index)" v-on:click.prevent="getBook(index)" style="cursor: pointer">
+                                        <div class="panel-heading">
+                                            <h6 class="panel-title text-bold">{{book.book}}</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div v-if="control.showChapterNumbers">
-                        <div class="row" style="margin-bottom: 1em;">
-                            <div class="col-md-12">
-                                <div class="btn-toolbar">
-                                    <div class="btn-group" v-for="chapterNum in book.chapterNumbers">
-                                        <button type="button" class="btn btn-lg bg-default" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)" style="cursor: pointer; margin-bottom: 0.3em">
+                        <div v-if="control.showChapterNumbers">
+                            <div class="row" style="margin-bottom: 1em;">
+                                <div class="col-md-12">
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group" v-for="chapterNum in book.chapterNumbers">
+                                            <button type="button" class="btn btn-lg bg-default" v-on:click.prevent="getText(control.selectedBook.index, chapterNum)" style="cursor: pointer; margin-bottom: 0.3em">
                                             <span v-if="control.boldChapter == parseInt(chapterNum)"><strong>{{chapterNum}}</strong></span>
                                             <span v-else><span>{{chapterNum}}</span></span>
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div v-if="control.showChapterVerses">
-                        <div class="row">
-                            <div v-for="(verse, index) in book.chapterVerses" class="col-md-12">
-                                <div class="panel panel-flat">
-                                    <div class="panel-heading">
-                                        <div class="panel-title"><span style="font-size: 1.3em">{{index}}. {{verse}}</span></div>
+                        <div v-if="control.showChapterVerses">
+                            <div class="row">
+                                <div v-for="(verse, index) in book.chapterVerses" class="col-md-12">
+                                    <div class="panel panel-flat">
+                                        <div class="panel-heading">
+                                            <div class="panel-title"><span style="font-size: 1.3em">{{index}}. {{verse}}</span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="footer text-muted">
+                            &copy; 2017. <span class="text-bold">Bíblia Nossa</span> por <a href="#" v-on:click.prevent="openLinkBrowser('http://marcodamaceno.com.br')">Marco Damaceno</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

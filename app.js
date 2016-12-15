@@ -1,6 +1,7 @@
-const jsonata = require('./node_modules/jsonata/jsonata.js')
-const Vue = require('./node_modules/vue/dist/vue.js')
-const VueResource = require('./node_modules/vue-resource/dist/vue-resource.js')
+const { shell } = require('electron')
+const jsonata = require('jsonata')
+const Vue = require('vue/dist/vue')
+const VueResource = require('vue-resource/dist/vue-resource')
 
 Vue.use(VueResource)
 
@@ -28,13 +29,13 @@ var bookVM = new Vue({
             selectedVersion: {}
         }
     },
-    mounted: function() {
+    mounted: function () {
         var _this = this
 
         Promise.resolve(_this.setVersion(0))
     },
     methods: {
-        parseData: function(version) {
+        parseData: function (version) {
             var _this = this
             var version = version || 'nvi'
             var jsonDataArr = {
@@ -43,7 +44,7 @@ var bookVM = new Vue({
                 aa: './data/aa.json'
             }
 
-            var p1 = new Promise(function(resolve, reject) {
+            var p1 = new Promise(function (resolve, reject) {
                 _this.$http.get(jsonDataArr[version]).then((response) => {
                     resolve(JSON.parse(response.data))
                 }, (response) => {
@@ -51,12 +52,12 @@ var bookVM = new Vue({
                 })
             })
 
-            p1.then(function(data) {
+            p1.then(function (data) {
                 _this.books = data
             })
         },
 
-        getBook: function(index) {
+        getBook: function (index) {
             var _this = this
             var result = jsonata('$[' + parseInt(index) + '].chapters').evaluate(_this.books)
 
@@ -77,7 +78,7 @@ var bookVM = new Vue({
             }
         },
 
-        getText: function(book, chapter) {
+        getText: function (book, chapter) {
             var _this = this
             var result = jsonata('$[' + parseInt(book) + '].chapters[' + (parseInt(chapter) - 1) + ']').evaluate(_this.books)
 
@@ -88,7 +89,7 @@ var bookVM = new Vue({
             _this.book.chapterVerses = result[chapter]
         },
 
-        goToListBook: function() {
+        goToListBook: function () {
             var _this = this
 
             // Controllers
@@ -102,7 +103,7 @@ var bookVM = new Vue({
             Promise.resolve(_this.setVersion(_this.control.selectedVersion.index))
         },
 
-        setColorBg: function(index) {
+        setColorBg: function (index) {
             var _this = this
             var index = parseInt(index)
 
@@ -131,7 +132,7 @@ var bookVM = new Vue({
             }
         },
 
-        setVersion: function(index) {
+        setVersion: function (index) {
             var _this = this
 
             _this.control.selectedVersion = {
@@ -156,6 +157,10 @@ var bookVM = new Vue({
             _this.control.showChapterVerses = false
             _this.control.boldChapter = 0
             _this.control.selectedBook = {}
+        },
+
+        openLinkBrowser: function (url) {
+            shell.openExternal(url)
         }
     }
 })
